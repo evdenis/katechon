@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# Copyright (C) 2018 Denis Efremov <efremov@ispras.ru>. All Rights Reserved.
+
+ccflags-y += -D'pr_fmt(fmt)=KBUILD_MODNAME ": " fmt'
+
+katechon-y := katechon_lsm.o
+
+obj-$(CONFIG_SECURITY_KATECHON) := katechon.o
