@@ -1,0 +1,9 @@
+*.patch
+*.id_rsa
+*.id_rsa.pub
+vm.img
+vm.log
+vm.pid
+upstream-kasan.config
+linux-*
+stretch/
