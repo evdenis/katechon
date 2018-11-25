@@ -26,4 +26,12 @@ coccicheck:
 format:
 	@clang-format -style=file -i $(filter-out katechon.mod.c,$(wildcard *.c)) $(wildcard *.h)
 
-.PHONY: all version.h module style check coccicheck
+remove_specs:
+	# Remove ACSL specs.
+	@$(PWD)/../contrib/remove_acsl_specs.pl $(shell find $(PWD) -maxdepth 2 -type f -name '*.[ch]')
+	# Remove include directives of spec headers.
+	@find $(PWD) -maxdepth 2 -type f -name '*.[ch]' -exec perl -i -pe 's!\s*#\s*include\s*"spec_.*\n!!g' {} \;
+	# Remove spec headers.
+	@find $(PWD) -maxdepth 2 -type f -name '*.[ch]' -name 'spec_*.[ch]' -delete
+
+.PHONY: all build style check coccicheck format remove_specs
