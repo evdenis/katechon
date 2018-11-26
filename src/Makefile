@@ -34,4 +34,8 @@ remove_specs:
 	# Remove spec headers.
 	@find $(PWD) -maxdepth 2 -type f -name '*.[ch]' -name 'spec_*.[ch]' -delete
 
-.PHONY: all build style check coccicheck format remove_specs
+cloc:
+	@cloc --skip-uniqueness --by-file $(filter-out katechon.mod.c,$(wildcard *.c)) $(wildcard *.h)
+
+
+.PHONY: all build style check coccicheck format remove_specs cloc
