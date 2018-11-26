@@ -4,6 +4,6 @@
 
 ccflags-y += -D'pr_fmt(fmt)=KBUILD_MODNAME ": " fmt'
 
-katechon-y := katechon_lsm.o
+katechon-y := katechon_lsm.o katechonfs.o
 
 obj-$(CONFIG_SECURITY_KATECHON) := katechon.o
