@@ -3,6 +3,8 @@
  * Copyright (C) 2018 Denis Efremov <efremov@ispras.ru>. All Rights Reserved.
  */
 
+#include "version.h"
+
 #include <linux/lsm_hooks.h>
 
 /**
@@ -15,7 +17,7 @@ static int __init katechon_init(void)
 	if (!security_module_enable("katechon"))
 		return 0;
 
-	pr_info("LSM initialized\n");
+	pr_info("LSM initialized ( " KATECHON_VERSION " )\n");
 
 	return 0;
 }

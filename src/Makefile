@@ -11,7 +11,13 @@ ifneq ($(V),1)
 MAKEFLAGS += --no-print-directory
 endif
 
-build:
+version.h:
+	@ver="#define KATECHON_VERSION \"$$(git describe --dirty 2>/dev/null)\"" && \
+	[ "$$(cat version.h 2>/dev/null)" != "$$ver" ] && \
+	echo "$$ver" > version.h && \
+	git update-index --assume-unchanged version.h || true
+
+build: version.h
 	@$(MAKE) -C $(KERNELDIR) security/katechon/
 
 style:
@@ -37,5 +43,4 @@ remove_specs:
 cloc:
 	@cloc --skip-uniqueness --by-file $(filter-out katechon.mod.c,$(wildcard *.c)) $(wildcard *.h)
 
-
-.PHONY: all build style check coccicheck format remove_specs cloc
+.PHONY: all version.h build style check coccicheck format remove_specs cloc
