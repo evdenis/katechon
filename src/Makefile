@@ -12,9 +12,10 @@ MAKEFLAGS += --no-print-directory
 endif
 
 version.h:
-	@ver="#define KATECHON_VERSION \"$$(git describe --dirty 2>/dev/null)\"" && \
-	[ "$$(cat version.h 2>/dev/null)" != "$$ver" ] && \
-	echo "$$ver" > version.h && \
+	@ver="/* SPDX-License-Identifier: GPL-2.0 */\n\
+	#define KATECHON_VERSION \"$$(git describe --dirty 2>/dev/null)\"" && \
+	[ "$$(cat version.h 2>/dev/null)" != "$$ver" ]                     && \
+	echo "$$ver" > version.h                                           && \
 	git update-index --assume-unchanged version.h || true
 
 build: version.h
