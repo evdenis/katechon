@@ -1,6 +1,7 @@
 config SECURITY_KATECHON
 	bool "KATECHON Integrity contol module"
 	depends on SECURITY
+	select SECURITYFS
 	default n
 	help
 	  This selects the KATECHON security module.
