@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KERNEL=${KERNEL:-linux-4.20-rc3}
+KERNEL=${KERNEL:-linux-4.20-rc7}
 
 qemu-system-x86_64 \
 	-kernel $KERNEL/arch/x86/boot/bzImage \

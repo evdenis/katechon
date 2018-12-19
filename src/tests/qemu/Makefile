@@ -6,7 +6,7 @@ all: qemu
 vm.img:
 	./create-image.sh 'vm.img'
 
-export KERNEL_VERSION?=4.20-rc3
+export KERNEL_VERSION?=4.20-rc7
 export KERNEL=linux-$(KERNEL_VERSION)
 export ARCHIVE?=gz
 export KERNEL_ARCHIVE=$(KERNEL).tar.$(ARCHIVE)
