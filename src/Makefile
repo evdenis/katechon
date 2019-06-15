@@ -44,4 +44,21 @@ remove_specs:
 cloc:
 	@cloc --skip-uniqueness --by-file $(filter-out katechon.mod.c,$(wildcard *.c)) $(wildcard *.h)
 
-.PHONY: all version.h build style check coccicheck format remove_specs cloc
+clean:
+	@find  . \( -name .git -o -name tests \) -prune -o               \
+	        \( -name '*.[aios]' -o -name '*.ko' -o -name '.*.cmd'    \
+	        -o -name '*.ko.*'                                        \
+	        -o -name '*.dtb' -o -name '*.dtb.S' -o -name '*.dt.yaml' \
+	        -o -name '*.dwo' -o -name '*.lst'                        \
+	        -o -name '*.su'                                          \
+	        -o -name '.*.d' -o -name '.*.tmp' -o -name '*.mod.c'     \
+	        -o -name '*.lex.c' -o -name '*.tab.[ch]'                 \
+	        -o -name '*.asn1.[ch]'                                   \
+	        -o -name '*.symtypes' -o -name 'modules.order'           \
+	        -o -name modules.builtin -o -name '.tmp_*.o.*'           \
+	        -o -name '*.c.[012]*.*'                                  \
+	        -o -name '*.ll'                                          \
+	        -o -name 'Module.symvers'                                \
+	        -o -name '*.gcno' \) -type f -print | xargs rm -f
+
+.PHONY: all version.h build style check coccicheck format remove_specs cloc clean
