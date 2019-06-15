@@ -1,5 +1,4 @@
 .ONESHELL:
-.PHONY: test clean katechon.new.patch
 
 all: qemu
 
@@ -48,3 +47,4 @@ qemu: $(KERNEL)/arch/x86_64/boot/bzImage vm.img
 clean:
 	-rm -fr $(KERNEL) $(KERNEL_ARCHIVE) *.id_rsa.pub *.id_rsa vm.img katechon.*.patch upstream-kasan.config
 
+.PHONY: all qemu clean katechon.new.patch
