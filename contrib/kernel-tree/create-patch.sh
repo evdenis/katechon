@@ -19,20 +19,20 @@ cat <<_EOF
 @@ -231,6 +231,7 @@ config STATIC_USERMODEHELPER_PATH
  	  specify an empty string here (i.e. "").
  
- source security/selinux/Kconfig
-+source security/katechon/Kconfig
- source security/smack/Kconfig
- source security/tomoyo/Kconfig
- source security/apparmor/Kconfig
-@@ -242,6 +243,7 @@ source security/integrity/Kconfig
+ source "security/selinux/Kconfig"
++source "security/katechon/Kconfig"
+ source "security/smack/Kconfig"
+ source "security/tomoyo/Kconfig"
+ source "security/apparmor/Kconfig"
+@@ -243,6 +244,7 @@ source "security/integrity/Kconfig"
  choice
- 	prompt "Default security module"
+ 	prompt "First legacy 'major LSM' to be initialized"
  	default DEFAULT_SECURITY_SELINUX if SECURITY_SELINUX
 +	default DEFAULT_SECURITY_KATECHON if SECURITY_KATECHON
  	default DEFAULT_SECURITY_SMACK if SECURITY_SMACK
  	default DEFAULT_SECURITY_TOMOYO if SECURITY_TOMOYO
  	default DEFAULT_SECURITY_APPARMOR if SECURITY_APPARMOR
-@@ -254,6 +256,9 @@ choice
+@@ -260,6 +262,9 @@ choice
  	config DEFAULT_SECURITY_SELINUX
  		bool "SELinux" if SECURITY_SELINUX=y
  
@@ -42,16 +42,16 @@ cat <<_EOF
  	config DEFAULT_SECURITY_SMACK
  		bool "Simplified Mandatory Access Control" if SECURITY_SMACK=y
  
-@@ -271,6 +276,7 @@ endchoice
- config DEFAULT_SECURITY
- 	string
- 	default "selinux" if DEFAULT_SECURITY_SELINUX
-+	default "katechon" if DEFAULT_SECURITY_KATECHON
- 	default "smack" if DEFAULT_SECURITY_SMACK
- 	default "tomoyo" if DEFAULT_SECURITY_TOMOYO
- 	default "apparmor" if DEFAULT_SECURITY_APPARMOR
+@@ -279,6 +284,7 @@ config LSM
+ 	default "yama,loadpin,safesetid,integrity,smack,selinux,tomoyo,apparmor" if DEFAULT_SECURITY_SMACK
+ 	default "yama,loadpin,safesetid,integrity,apparmor,selinux,smack,tomoyo" if DEFAULT_SECURITY_APPARMOR
+ 	default "yama,loadpin,safesetid,integrity,tomoyo" if DEFAULT_SECURITY_TOMOYO
++	default "yama,loadpin,safesetid,integrity,katechon" if DEFAULT_SECURITY_KATECHON
+ 	default "yama,loadpin,safesetid,integrity" if DEFAULT_SECURITY_DAC
+ 	default "yama,loadpin,safesetid,integrity,selinux,smack,tomoyo,apparmor"
+ 	help
 diff --git a/security/Makefile b/security/Makefile
-index 4d2d3782ddef..3d6cf28dd11a 100644
+index c598b904938f..9274b86e331b 100644
 --- a/security/Makefile
 +++ b/security/Makefile
 @@ -5,6 +5,7 @@
@@ -62,7 +62,7 @@ index 4d2d3782ddef..3d6cf28dd11a 100644
  subdir-\$(CONFIG_SECURITY_SMACK)		+= smack
  subdir-\$(CONFIG_SECURITY_TOMOYO)        += tomoyo
  subdir-\$(CONFIG_SECURITY_APPARMOR)	+= apparmor
-@@ -19,6 +20,7 @@ obj-\$(CONFIG_MMU)			+= min_addr.o
+@@ -20,6 +21,7 @@ obj-\$(CONFIG_MMU)			+= min_addr.o
  obj-\$(CONFIG_SECURITY)			+= security.o
  obj-\$(CONFIG_SECURITYFS)		+= inode.o
  obj-\$(CONFIG_SECURITY_SELINUX)		+= selinux/
