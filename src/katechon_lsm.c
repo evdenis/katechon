@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0
 /*
- * Copyright (C) 2018 Denis Efremov <efremov@ispras.ru>. All Rights Reserved.
+ * Copyright (C) 2019 Denis Efremov <efremov@ispras.ru>. All Rights Reserved.
  */
 
 #include "version.h"

@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-2.0
 #
-# Copyright (C) 2018 Denis Efremov <efremov@ispras.ru> All Rights Reserved.
+# Copyright (C) 2019 Denis Efremov <efremov@ispras.ru> All Rights Reserved.
 # Based on WireGuard sources by Jason A. Donenfeld <Jason@zx2c4.com>.
 
 shopt -s globstar
