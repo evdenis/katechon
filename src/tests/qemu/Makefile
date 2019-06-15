@@ -1,5 +1,7 @@
 .ONESHELL:
 
+NPROC:=$(shell nproc)
+
 all: qemu
 
 vm.img:
@@ -40,7 +42,7 @@ $(KERNEL)/arch/x86_64/boot/bzImage $(MODULE)/built-in.a: $(MODULE) upstream-kasa
 	sed -i '/^CONFIG_SECURITY_SELINUX/d;/^CONFIG_DEFAULT_SECURITY/d;/KATECHON/d' .config
 	echo '# CONFIG_SECURITY_SELINUX is not set\nCONFIG_SECURITY_KATECHON=y\nCONFIG_DEFAULT_SECURITY_KATECHON=y\nCONFIG_DEFAULT_SECURITY="katechon"' >> .config
 	make olddefconfig
-	make -j6
+	make -j$(NPROC)
 
 qemu: $(KERNEL)/arch/x86_64/boot/bzImage vm.img
 
