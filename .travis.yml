@@ -15,7 +15,7 @@ addons:
 
 matrix:
         include:
-                env: KERNEL_VERSION=4.20-rc7
+                env: KERNEL_VERSION=5.2-rc4
 
 cache:
         directories:
@@ -32,7 +32,7 @@ before_script:
         - ./contrib/kernel-tree/create-patch.sh > katechon.patch
         - cd ..
         # kernel configuration
-        - wget --quiet https://git.kernel.org/torvalds/t/linux-$KERNEL_VERSION.tar.gz
+        - wget --quiet https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-$KERNEL_VERSION.tar.gz
         - tar xf linux-$KERNEL_VERSION.tar.gz
         - export KERNELDIR="$(pwd)/linux-$KERNEL_VERSION"
         - cd $KERNELDIR
