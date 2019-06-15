@@ -14,9 +14,6 @@
  */
 static int __init katechon_init(void)
 {
-	if (!security_module_enable("katechon"))
-		return 0;
-
 	pr_info("LSM initialized ( " KATECHON_VERSION " )\n");
 
 	return 0;
