@@ -6,14 +6,14 @@ all: qemu
 vm.img:
 	./create-image.sh 'vm.img'
 
-export KERNEL_VERSION?=4.20-rc7
+export KERNEL_VERSION?=5.2-rc4
 export KERNEL=linux-$(KERNEL_VERSION)
 export ARCHIVE?=gz
 export KERNEL_ARCHIVE=$(KERNEL).tar.$(ARCHIVE)
 export MODULE="$(KERNEL)/security/katechon"
 
 $(KERNEL_ARCHIVE):
-	wget --quiet https://git.kernel.org/torvalds/t/$@
+	wget --quiet https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/$@
 
 $(KERNEL): | $(KERNEL_ARCHIVE)
 	tar xf $(KERNEL_ARCHIVE)
