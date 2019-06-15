@@ -3,7 +3,7 @@
  * Copyright (C) 2019 Denis Efremov <efremov@ispras.ru>. All Rights Reserved.
  */
 
-#include "version.h"
+#include "common.h"
 
 #include <linux/security.h>
 
@@ -44,6 +44,9 @@ static int __init katechonfs_init(void)
 	int error = 0;
 	struct dentry *katechon_dir = NULL;
 	struct dentry *katechon_version = NULL;
+
+	if (!katechon_enabled)
+		return 0;
 
 	katechon_dir = securityfs_create_dir("katechon", NULL);
 	if (!katechon_dir || IS_ERR(katechon_dir))
